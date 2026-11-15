@@ -1,0 +1,12 @@
+/node_modules/
+/extension-dist/
+/output/
+/.playwright-cli/
+/public/tracking/
+/coverage/
+.env*
+*.tsbuildinfo
+npm-debug.log*
+.DS_Store
+AGENTS.md
+EYZON-ME_WRITEUP.md

@@ -1,0 +1,15 @@
+import type {Observation} from '../components/FocusTracker';
+export type Point={x:number;y:number};
+export type Space={left:number;top:number;width:number;height:number};
+export type CalibrationPoint={target:Point;features:number[];baseline:{yaw:number;pitch:number;gazeX:number;gazeY:number}};
+export type ScreenModel={mean:number[];scale:number[];weights:number[][];baseline:CalibrationPoint['baseline']};
+export type Accuracy={mean:number;max:number;usable:boolean};
+export const TRAIN_POINTS:Point[];export const CHECK_POINTS:Point[];
+export function eyeFeatures(points:{x:number;y:number}[],yaw:number,pitch:number,gaze:Point):number[]|null;
+export function validSample(o:Observation):boolean;
+export function summarize(samples:Observation[],target:Point):CalibrationPoint;
+export function fitScreen(points:CalibrationPoint[]):ScreenModel|null;
+export function predictScreen(model:ScreenModel|null,features?:number[]):Point|null;
+export function checkAccuracy(model:ScreenModel,checks:CalibrationPoint[],width:number,height:number):Accuracy;
+export function viewportSpace(w:Pick<Window,'innerWidth'|'innerHeight'|'outerWidth'|'outerHeight'|'devicePixelRatio'|'screenX'|'screenY'>,zoom?:number):Space;
+export function mapScreenPoint(point:Point,space:Space|null,viewport:Space&{dpr:number}):Point;

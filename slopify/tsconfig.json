@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "types": [
+      "chrome",
+      "vite/client"
+    ]
+  },
+  "include": [
+    "components",
+    "hooks",
+    "extension",
+    "lib"
+  ],
+  "exclude": [
+    "node_modules",
+    "extension-dist"
+  ]
+}

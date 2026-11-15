@@ -1,0 +1,20 @@
+Eyzon-me third-party notices
+
+MediaPipe Tasks Vision 1.2.3
+Copyright Google LLC. Licensed under the Apache License, Version 2.0.
+License: https://www.apache.org/licenses/LICENSE-2.0
+Source: https://github.com/google-ai-edge/mediapipe
+
+Face Landmarker float16 model version 1, distributed by Google:
+https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
+Model documentation: https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker
+
+React and React DOM are distributed under the MIT License. Copyright Meta Platforms, Inc. and affiliates.
+See https://github.com/facebook/react/blob/main/LICENSE.
+
+Pixelify Sans: Copyright 2021 The Pixelify Sans Project Authors.
+Distributed under SIL Open Font License 1.1; see Pixelify-Sans-LICENSE.txt in this extension.
+
+ml-matrix 6.15.1 and its numerical helpers are MIT licensed.
+Source: https://github.com/mljs/matrix
+Full copyright and license texts: Matrix-LICENSES.txt in this extension.

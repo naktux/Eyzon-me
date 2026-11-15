@@ -1,0 +1,61 @@
+{
+  "provider": "Gradium",
+  "voiceId": "YTpq7expH9539ERJ",
+  "clips": {
+    "welcome": {
+      "file": "welcome.wav",
+      "text": "I'm Eyzon. Eyes on me, mind on your work.",
+      "fingerprint": "175639a7bec643920f4c00985bd5ab92ccf3eb158191c4e0578371f3671e513b"
+    },
+    "suspicious1": {
+      "file": "suspicious1.wav",
+      "text": "Hey! Eyes over here, please.",
+      "fingerprint": "c4a2676e80225f0cdaf7215e7382ec6fa0e984493bda50adcd280c4487f4b3bd"
+    },
+    "suspicious2": {
+      "file": "suspicious2.wav",
+      "text": "Your focus called. It misses you.",
+      "fingerprint": "faaa5374b886025a9cc9fa0f786a7dba58b5caafeaeae9f632aef4b983c3c86f"
+    },
+    "suspicious3": {
+      "file": "suspicious3.wav",
+      "text": "I'm small, but I noticed that.",
+      "fingerprint": "28e984225470868073fee0def134d5f0631692f43ebcda49387431231894bf22"
+    },
+    "panicking1": {
+      "file": "panicking1.wav",
+      "text": "Hello? Tiny study buddy needs backup!",
+      "fingerprint": "26b384d28c28129240fb453a2be26b2cd9513b57d22da76f08a9857cb2604f20"
+    },
+    "panicking2": {
+      "file": "panicking2.wav",
+      "text": "Come back! I'm doing all the worrying!",
+      "fingerprint": "9cd173537cae5172bcd040063aa8ceb825cff23b7eaebb2c19b739f7ea7cbdb9"
+    },
+    "panicking3": {
+      "file": "panicking3.wav",
+      "text": "We're losing focus. And my dignity.",
+      "fingerprint": "aa2bd7b9b84d9ec0f7d6b51e73eca656998c56f0a548792d9f35985e92404458"
+    },
+    "urgent1": {
+      "file": "urgent1.wav",
+      "text": "I'm wobbling! A little focus, please!",
+      "fingerprint": "b60f95756ebb4857bc62a2c0e3ab2fca19179032b3f676b6262fc50bd12a84ad"
+    },
+    "urgent2": {
+      "file": "urgent2.wav",
+      "text": "Emergency! Your tiny friend is running on fumes!",
+      "fingerprint": "a3708ff407402b2b3c6caaab8fbb33019ac4d1cc65c78bce71ab64aa95457f75"
+    },
+    "urgent3": {
+      "file": "urgent3.wav",
+      "text": "Eyes back before I dramatically collapse!",
+      "fingerprint": "8bcdcbcddf2812a76457b96c71df144108cfc653aed7650b95e35f939eb2ea8b"
+    },
+    "fainted": {
+      "file": "fainted.wav",
+      "text": "I have dramatically fainted. Look back to revive me.",
+      "fingerprint": "eb5c352e7df2ae8fa64bc391e36dd566d1df841e40b54def1c9dd14c7997eaa8"
+    }
+  }
+}
