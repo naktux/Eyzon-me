@@ -6,7 +6,7 @@ const baseline={yaw:0,pitch:0,gazeX:0,gazeY:0};
 const features=p=>[(p.x-.5)*.5,(p.y-.5)*.3,(p.x-.5)*.48,(p.y-.5)*.31,(p.x-.5)*.6,(p.y-.5)*.4,0,0];
 const point=p=>({target:p,features:features(p),baseline});
 const trained=()=>fitScreen(TRAIN_POINTS.map(point));
-test('nine-point regression predicts independent points and reports validation pixel error',()=>{
+test('five-point regression predicts independent points and reports validation pixel error',()=>{
  const model=trained();assert.ok(model);
  for(const p of CHECK_POINTS){const q=predictScreen(model,features(p));assert.ok(Math.hypot(q.x-p.x,q.y-p.y)<.025);}
  const accuracy=checkAccuracy(model,CHECK_POINTS.map(point),1920,1080);assert.equal(accuracy.usable,true);assert.ok(accuracy.mean<50);

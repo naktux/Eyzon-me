@@ -86,3 +86,8 @@ Browser verification covers actual bundled WASM inference under extension CSP, n
 - [RealEye Light Open](https://github.com/RealEye-io/webcam-eyetracker-light-open): another browser screen-gaze implementation; its current repository is AGPL-3.0/commercial dual licensed. It was not added.
 
 This build uses our existing MediaPipe observations with a measured calibration map. It does not claim to match a dedicated gaze model or an infrared eye tracker.
+
+## Faster calibration and drag physics
+Calibration now collects five training points (four corners and center) plus two independent check points automatically. No per-point clicks are needed. Each point has 650 ms to settle and at least 600 ms of valid observations, taking about ten seconds with a clear camera view. Accuracy checks remain approximate and poor fits still require retrying.
+
+Drag and release Eyzon to throw them: release velocity, gravity, friction, and damped edge/floor bounces determine where they land. The settled location becomes their resting spot. Reduced-motion mode keeps direct placement without throwing. Hidden tabs pause animation.

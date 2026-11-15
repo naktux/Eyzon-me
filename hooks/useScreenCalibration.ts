@@ -21,7 +21,8 @@ export function useScreenCalibration(onCommit:(model:ScreenModel,space:Space,acc
   try{const tab=await chrome.tabs.getCurrent();if(tab?.id!==undefined)zoom=await chrome.tabs.getZoom(tab.id);}catch{/* Normal browser preview uses zoom 1. */}
   if(current.current.phase==='closed'){exit();return;}
   data.current={points:[],checks:[],model:null,space:viewportSpace(window,zoom),width:innerWidth,height:innerHeight,display:{x:screenX,y:screenY,dpr:devicePixelRatio},samples:[],armed:0,last:0,dwell:0};
-  update({...INITIAL,phase:'training',fullscreen,message:'Look at the dot. Press Space or click it when ready.'});
+  Object.assign(data.current,{armed:performance.now(),last:0,dwell:0,samples:[]});
+  update({...INITIAL,phase:'training',fullscreen,capturing:true,message:'Follow the dot with your eyes. Collection is automatic.'});
  },[exit,update]);
  const arm=useCallback(()=>{
   if(!['training','checking'].includes(current.current.phase)||current.current.capturing)return;
@@ -31,26 +32,27 @@ export function useScreenCalibration(onCommit:(model:ScreenModel,space:Space,acc
  const sample=useCallback((o:Observation,now:number)=>{
   const v=current.current,d=data.current;if(!v.capturing)return;
   if(document.hidden){d.samples=[];d.dwell=0;d.last=0;update({progress:0,message:'Return to this calibration tab to continue.'});return;}
-  if(now-d.armed<450)return; // Let the eye settle before gathering evidence.
+  if(now-d.armed<650)return; // Let the eye settle after the dot moves.
   if(!validSample(o)){
    // A blink pauses capture; face loss or a longer gap discards the partial point.
    if(!o.face||d.last&&now-d.last>350){d.samples=[];d.dwell=0;}
-   update({progress:d.dwell/900,message:!o.face?'Face not visible. Face the camera to continue.':(o.blinkStrength||0)>=.55?'Blink detected. Keep looking at the dot.':'Eyes are not clear enough. Face the camera with even lighting.'});return;
+   update({progress:d.dwell/600,message:!o.face?'Face not visible. Face the camera to continue.':(o.blinkStrength||0)>=.55?'Blink detected. Keep looking at the dot.':'Eyes are not clear enough. Face the camera with even lighting.'});return;
   }
   if(d.last&&now-d.last>350){d.samples=[];d.dwell=0;}
   d.dwell+=d.last?Math.min(120,now-d.last):0;d.last=now;
   d.samples.push(o);if(d.samples.length>30)d.samples.shift();
-  update({progress:Math.min(1,d.dwell/900),message:'Collecting eye positions…'});
-  if(d.dwell<900||d.samples.length<8)return;
+  update({progress:Math.min(1,d.dwell/600),message:'Collecting eye positions…'});
+  if(d.dwell<600||d.samples.length<6)return;
   const points=v.phase==='training'?TRAIN_POINTS:CHECK_POINTS;
   const point=summarize(d.samples,points[v.index]);
   if(v.phase==='training')d.points.push(point);else d.checks.push(point);
   d.samples=[];
-  if(v.index<points.length-1){update({index:v.index+1,capturing:false,progress:0,message:'Next dot. Look first, then press Space.'});return;}
+  Object.assign(d,{armed:now,last:0,dwell:0});
+  if(v.index<points.length-1){update({index:v.index+1,capturing:true,progress:0,message:'Follow the dot. No click needed.'});return;}
   if(v.phase==='training'){
    d.model=fitScreen(d.points);
    if(!d.model){update({phase:'result',capturing:false,accuracy:null,message:'Not enough distinct eye movement to learn a screen map. Try brighter, even lighting and keep your head still.'});return;}
-   update({phase:'checking',index:0,capturing:false,progress:0,message:'Now check five fresh points. These were not used to train the map.'});return;
+   update({phase:'checking',index:0,capturing:true,progress:0,message:'Two quick accuracy checks. Keep following the dot.'});return;
   }
   const accuracy=checkAccuracy(d.model!,d.checks,d.width,d.height);
   update({phase:'result',capturing:false,accuracy,message:accuracy.usable?'Your screen map is ready. Webcam gaze remains approximate.':'This map is too imprecise to use. Adjust your camera or lighting and try again.'});
@@ -69,5 +71,5 @@ export function useScreenCalibration(onCommit:(model:ScreenModel,space:Space,acc
   const timer=['training','checking','result'].includes(view.phase)?setInterval(changed,250):undefined;
   return()=>{clearInterval(timer);window.removeEventListener('resize',changed);document.removeEventListener('fullscreenchange',full);};
  },[cancel,view.phase]);
- return {...view,open,begin,cancel,arm,sample,accept,point:(view.phase==='checking'?CHECK_POINTS:TRAIN_POINTS)[view.index],total:view.phase==='checking'?5:9};
+ return {...view,open,begin,cancel,arm,sample,accept,point:(view.phase==='checking'?CHECK_POINTS:TRAIN_POINTS)[view.index],total:view.phase==='checking'?CHECK_POINTS.length:TRAIN_POINTS.length};
 }
