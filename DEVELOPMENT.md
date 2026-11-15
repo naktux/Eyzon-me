@@ -6,7 +6,7 @@ A local, webcam-powered focus companion named **Eyzon**. Eyzon-me sounds like â€
 
 1. Open `chrome://extensions` in Chrome.
 2. Enable **Developer mode** (top right).
-3. Click **Load unpacked** and choose the `slopify/extension-dist` folder in this project.
+3. Click **Load unpacked** and choose the `extension-dist` folder in this project.
 4. Pin **Eyzon-me**, then click its icon to open the dashboard.
 5. Allow camera access, click **Test camera**, then **Calibrate camera**. Begin full-screen calibration, look at each dot, and press Space or click it. Follow four corners, four edges, the center, then five independent accuracy checks. Choose **Use this calibration** when it passes.
 6. Click **Start session**, then visit a regular website. Refresh tabs that were already open when the extension was installed.
@@ -25,7 +25,7 @@ If camera access fails, allow the extension's camera permission and Windows desk
 
 ## Development
 
-From `slopify/` run:
+From the repository root run:
 
 - `npm install`
 - `npm run build` - creates `extension-dist`; then reload the extension in Chrome.
